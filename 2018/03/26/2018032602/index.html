@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React,Redux,Immutable," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tyrone" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="一道面试题,要求如下：  用web技术实现一个五子棋 支持DOM和Canvas版本切换 实现悔棋功能 实现一个撤销悔棋功能  前文: 使用react结合Immutable实现一道五子棋面试题(上)github: https://github.com/fenggu/gomoku">
+<meta name="keywords" content="React,Redux,Immutable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用react结合Immutable实现一道五子棋面试题(下)">
+<meta property="og:url" content="http://fenggu.github.io/2018/03/26/2018032602/index.html">
+<meta property="og:site_name" content="Tyrone">
+<meta property="og:description" content="一道面试题,要求如下：  用web技术实现一个五子棋 支持DOM和Canvas版本切换 实现悔棋功能 实现一个撤销悔棋功能  前文: 使用react结合Immutable实现一道五子棋面试题(上)github: https://github.com/fenggu/gomoku">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://fenggu.github.io/images/gomoku-canvas.png">
+<meta property="og:image" content="http://fenggu.github.io/images/gomoku.gif">
+<meta property="og:updated_time" content="2018-03-26T06:27:36.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用react结合Immutable实现一道五子棋面试题(下)">
+<meta name="twitter:description" content="一道面试题,要求如下：  用web技术实现一个五子棋 支持DOM和Canvas版本切换 实现悔棋功能 实现一个撤销悔棋功能  前文: 使用react结合Immutable实现一道五子棋面试题(上)github: https://github.com/fenggu/gomoku">
+<meta name="twitter:image" content="http://fenggu.github.io/images/gomoku-canvas.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://fenggu.github.io/2018/03/26/2018032602/"/>
+
+
+
+
+
+  <title>使用react结合Immutable实现一道五子棋面试题(下) | Tyrone</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tyrone</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fenggu.github.io/2018/03/26/2018032602/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TyroneFgu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tyrone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用react结合Immutable实现一道五子棋面试题(下)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:25:34+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一道面试题,要求如下：</p>
+<ul>
+<li>用web技术实现一个五子棋</li>
+<li>支持DOM和Canvas版本切换</li>
+<li>实现悔棋功能</li>
+<li>实现一个撤销悔棋功能</li>
+</ul>
+<p>前文: <a href="https://fenggu.github.io/2018/03/26/2018032601/">使用react结合Immutable实现一道五子棋面试题(上)</a><br>github: <a href="https://github.com/fenggu/gomoku" target="_blank" rel="noopener">https://github.com/fenggu/gomoku</a><br><a id="more"></a></p>
+<h4 id="Canvas版开发"><a href="#Canvas版开发" class="headerlink" title="Canvas版开发"></a>Canvas版开发</h4><p>首先创建一个<code>&lt;canvas /&gt;</code>标签，然后使用<code>canvas</code>api来进行棋盘和棋子的绘制。<code>canvas</code>版本的棋盘数据也是来自<code>store</code>与<code>dom</code>版共用一份数据，这样可以达到<code>dom</code>和<code>canvas</code>版本无缝切换的效果<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">renderBox = <span class="function">(<span class="params">gomoku</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> canvas = <span class="keyword">this</span>.refs.canvas</span><br><span class="line">  <span class="keyword">if</span> (canvas.getContext) &#123;</span><br><span class="line">    <span class="keyword">let</span> ctx = canvas.getContext(<span class="string">'2d'</span>)</span><br><span class="line">    ctx.clearRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">450</span>, <span class="number">450</span>)</span><br><span class="line">    ctx.fillStyle = <span class="string">'#333'</span>;</span><br><span class="line">    ctx.beginPath()</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i++) &#123;</span><br><span class="line">      ctx.moveTo(<span class="number">15</span>, <span class="number">30</span> * i + <span class="number">15</span>)</span><br><span class="line">      ctx.lineTo(<span class="number">435</span>, <span class="number">30</span> * i + <span class="number">15</span>)</span><br><span class="line">      ctx.stroke()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i++) &#123;</span><br><span class="line">      ctx.moveTo(<span class="number">30</span> * i + <span class="number">15</span>, <span class="number">15</span>)</span><br><span class="line">      ctx.lineTo(<span class="number">30</span> * i + <span class="number">15</span>, <span class="number">435</span>)</span><br><span class="line">      ctx.stroke()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> x = <span class="number">0</span>; x &lt; gomoku.length; x ++) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> y = <span class="number">0</span>; y &lt; gomoku[x].length; y++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (gomoku[x][y] !== <span class="number">0</span>) &#123;</span><br><span class="line">          ctx.beginPath()</span><br><span class="line">          ctx.fillStyle = gomoku[x][y] === <span class="number">1</span> ? <span class="string">'#fff'</span> : <span class="string">'#000'</span></span><br><span class="line">          ctx.arc(<span class="number">15</span> + y * <span class="number">30</span>, <span class="number">15</span> + x * <span class="number">30</span>, <span class="number">15</span>, <span class="number">0</span>, <span class="built_in">Math</span>.PI*<span class="number">2</span>, <span class="literal">true</span>)</span><br><span class="line">          ctx.fill()</span><br><span class="line">          ctx.fillStyle = gomoku[x][y] === <span class="number">1</span> ? <span class="string">'#000'</span> : <span class="string">'#fff'</span></span><br><span class="line">          ctx.arc(<span class="number">15</span> + y * <span class="number">30</span>, <span class="number">15</span> + x * <span class="number">30</span>, <span class="number">15</span>, <span class="number">0</span>, <span class="built_in">Math</span>.PI*<span class="number">2</span>, <span class="literal">true</span>)</span><br><span class="line">          ctx.stroke()</span><br><span class="line">          ctx.closePath();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后还是使用上面的<code>gomoku()</code>方法，只是改一下<code>x</code> <code>y</code>的获取方式改成点击事件的坐标。然后通过减去棋盘的<code>offsetLeft</code>和<code>offsetTop</code>然后除以棋子的宽度取整。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> y = <span class="built_in">Math</span>.floor((e.pageX - e.target.offsetLeft) / <span class="number">30</span>)</span><br><span class="line"><span class="keyword">let</span> x = <span class="built_in">Math</span>.floor((e.pageY - e.target.offsetTop) / <span class="number">30</span>)</span><br></pre></td></tr></table></figure></p>
+<p>效果图：<br><img src="/images/gomoku-canvas.png" alt="img"></p>
+<h4 id="输赢判断"><a href="#输赢判断" class="headerlink" title="输赢判断"></a>输赢判断</h4><p>每一次下棋都会有一次输赢判断，会以点击坐标为原点然后遍历上下左右，右上到左下，左上到右下6个方向。如果有连续相同颜色的5个棋子则胜利。因为<code>DOM</code>版和<code>Canvas</code>版是共用同一套逻辑的输赢判断。因此这里我采用了高阶组件的方式来传入输赢判断的函数。<br>高阶组件<code>goMokuMixin</code>代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> &#123; bindActionCreators &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> goMokuAction <span class="keyword">from</span> <span class="string">'../../actions/gomoku'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (ComposedComponent) =&gt; &#123;</span><br><span class="line">  <span class="comment">/* Redux bind */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mapStateToProps</span> (<span class="params">state</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> index = state.get(<span class="string">'index'</span>)</span><br><span class="line">    <span class="keyword">let</span> gomoku = state.get(<span class="string">'gomoku'</span>).get(index).toJS()</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      index: index,</span><br><span class="line">      gomoku: gomoku,</span><br><span class="line">      win: state.get(<span class="string">'win'</span>),</span><br><span class="line">      size: state.get(<span class="string">'gomoku'</span>).size</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">mapDispatchToProps</span> (<span class="params">dispatch</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      actions: bindActionCreators(<span class="built_in">Object</span>.assign(&#123;&#125;, goMokuAction), dispatch)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  @connect(mapStateToProps, mapDispatchToProps)</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">goMokuMixin</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    isWin = <span class="function">(<span class="params">x, y, isCurrent</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.props.actions.changeWin(&#123;</span><br><span class="line">        role: <span class="number">0</span>,</span><br><span class="line">        size: <span class="literal">null</span></span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">let</span> pieces = <span class="keyword">this</span>.props.gomoku</span><br><span class="line">      <span class="keyword">let</span> sum = &#123;</span><br><span class="line">        lrCount: &#123;</span><br><span class="line">          count: <span class="number">1</span>,</span><br><span class="line">          order: &#123;</span><br><span class="line">            <span class="number">0</span>: [<span class="number">-1</span>, <span class="number">0</span>],</span><br><span class="line">            <span class="number">1</span>: [<span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        udCount: &#123;</span><br><span class="line">          count: <span class="number">1</span>,</span><br><span class="line">          order: &#123;</span><br><span class="line">            <span class="number">0</span>: [<span class="number">0</span>, <span class="number">-1</span>],</span><br><span class="line">            <span class="number">1</span>: [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        luCount: &#123;</span><br><span class="line">          count: <span class="number">1</span>,</span><br><span class="line">          order: &#123;</span><br><span class="line">            <span class="number">0</span>: [<span class="number">-1</span>, <span class="number">1</span>],</span><br><span class="line">            <span class="number">1</span>: [<span class="number">1</span>, <span class="number">-1</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        rdCount: &#123;</span><br><span class="line">          count: <span class="number">1</span>,</span><br><span class="line">          order: &#123;</span><br><span class="line">            <span class="number">0</span>: [<span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">            <span class="number">1</span>: [<span class="number">-1</span>, <span class="number">-1</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> co <span class="keyword">in</span> sum) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> o <span class="keyword">in</span> sum[co].order) &#123;</span><br><span class="line">          <span class="keyword">let</span> constantX = sum[co].order[o][<span class="number">0</span>]</span><br><span class="line">          <span class="keyword">let</span> constantY = sum[co].order[o][<span class="number">1</span>]</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((x + constantX * i) &gt;= <span class="number">15</span> || (x + constantX * i) &lt; <span class="number">0</span> || (y + constantY * i) &gt;= <span class="number">15</span> || (y + constantY * i) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (pieces[x + constantX * i][y + constantY * i] !== isCurrent) &#123;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            sum[co].count++</span><br><span class="line">            <span class="keyword">this</span>.isOverCount(sum[co].count)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isOverCount = <span class="function">(<span class="params">count</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> isCurrent = <span class="keyword">this</span>.props.index % <span class="number">2</span> === <span class="number">0</span> ? <span class="number">2</span> : <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> (count &gt;= <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.props.actions.changeWin(&#123;</span><br><span class="line">          role: isCurrent,</span><br><span class="line">          size: <span class="keyword">this</span>.props.size</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">return</span> (&lt;ComposedComponent isWin=&#123;this.isWin&#125; /&gt;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return goMokuMixin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="时光旅行"><a href="#时光旅行" class="headerlink" title="时光旅行"></a>时光旅行</h4><p>因为题目要求上有悔棋以及撤销悔棋功能，这里我们采用<code>store</code>里的<code>index</code>的更改，来实现整场对局的时光旅行。因为随着对局次数越来越多，棋盘的数据也会越来越大，我采用了Immutable来存储对局的棋盘。<br><code>gomoku</code>reducer:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Immutable <span class="keyword">from</span> <span class="string">'immutable'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; PUSH_GOMOKU, GOMOKU_RESTORE &#125; <span class="keyword">from</span> <span class="string">'../constants/actionTypes'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> gomoku = [], boxs = []</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> x = <span class="number">0</span>; x &lt; <span class="number">15</span>; x++) &#123;</span><br><span class="line">    boxs.push([])</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> y = <span class="number">0</span>; y &lt; <span class="number">15</span>; y++) &#123;</span><br><span class="line">      boxs[x].push(<span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  gomoku.push(boxs)</span><br><span class="line">  <span class="keyword">return</span> gomoku</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initialState = Immutable.fromJS(createData())</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (state = initialState, action) =&gt; &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> PUSH_GOMOKU:</span><br><span class="line">      <span class="keyword">return</span> state.splice(action.index).push(Immutable.fromJS(action.moku))</span><br><span class="line">    <span class="keyword">case</span> GOMOKU_RESTORE:</span><br><span class="line">      <span class="keyword">return</span> initialState</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以我们是以<code>this.props.gomoku.get(index).toJS()</code>的形式来提取当前对局数据。也就是说只要将<code>index</code>的值-1即是悔棋，+1则是撤销悔棋。同时利用这个，我们也可以顺便实现一个对局回放的功能。即是将index的值置0然后定时增加即刻。<br><img src="/images/gomoku.gif" alt="img"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>投食二维码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="TyroneFgu 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+            <a href="/tags/Redux/" rel="tag"># Redux</a>
+          
+            <a href="/tags/Immutable/" rel="tag"># Immutable</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/26/2018032601/" rel="next" title="使用react结合Immutable实现一道五子棋面试题(上)">
+                <i class="fa fa-chevron-left"></i> 使用react结合Immutable实现一道五子棋面试题(上)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTIwMC8xMTczNQ"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">TyroneFgu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/fenggu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:tyronefgu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Canvas版开发"><span class="nav-number">1.</span> <span class="nav-text">Canvas版开发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输赢判断"><span class="nav-number">2.</span> <span class="nav-text">输赢判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时光旅行"><span class="nav-number">3.</span> <span class="nav-text">时光旅行</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TyroneFgu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
