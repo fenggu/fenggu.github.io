@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://fenggu.github.io/about/index.html</loc>
+    
+    <lastmod>2018-03-28T09:43:59.472Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://fenggu.github.io/2018/03/26/2018032602/</loc>
     
     <lastmod>2018-03-28T08:31:22.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://fenggu.github.io/2018/03/26/2018032601/</loc>
     
     <lastmod>2018-03-28T08:29:53.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://fenggu.github.io/about/index.html</loc>
-    
-    <lastmod>2018-03-26T06:38:02.400Z</lastmod>
     
   </url>
   
