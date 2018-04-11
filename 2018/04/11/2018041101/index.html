@@ -81,13 +81,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tyrone">
-<meta property="og:url" content="http://fenggu.github.io/index.html">
+<meta name="description" content="给出一个 m x n 的矩阵（m 行, n 列），请按照顺时针螺旋顺序返回元素。 例如，给出以下矩阵：12345[ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ]] 应该返回 [1,2,3,6,9,8,7,4,5]。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode数组题(中级)--螺旋矩阵">
+<meta property="og:url" content="http://fenggu.github.io/2018/04/11/2018041101/index.html">
 <meta property="og:site_name" content="Tyrone">
+<meta property="og:description" content="给出一个 m x n 的矩阵（m 行, n 列），请按照顺时针螺旋顺序返回元素。 例如，给出以下矩阵：12345[ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ]] 应该返回 [1,2,3,6,9,8,7,4,5]。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-11T09:44:53.391Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tyrone">
+<meta name="twitter:title" content="LeetCode数组题(中级)--螺旋矩阵">
+<meta name="twitter:description" content="给出一个 m x n 的矩阵（m 行, n 列），请按照顺时针螺旋顺序返回元素。 例如，给出以下矩阵：12345[ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ]] 应该返回 [1,2,3,6,9,8,7,4,5]。">
 
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://fenggu.github.io/"/>
+  <link rel="canonical" href="http://fenggu.github.io/2018/04/11/2018041101/"/>
 
 
 
 
 
-  <title>Tyrone</title>
+  <title>LeetCode数组题(中级)--螺旋矩阵 | Tyrone</title>
   
 
 
@@ -142,8 +146,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,9 +239,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -268,9 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/11/2018041101/" itemprop="url">LeetCode数组题(中级)--螺旋矩阵</a></h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode数组题(中级)--螺旋矩阵</h1>
         
 
         <div class="post-meta">
@@ -320,18 +321,10 @@
       
 
       
-        
-          <p>给出一个 m x n 的矩阵（m 行, n 列），请按照顺时针螺旋顺序返回元素。</p>
+        <p>给出一个 m x n 的矩阵（m 行, n 列），请按照顺时针螺旋顺序返回元素。</p>
 <p>例如，给出以下矩阵：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line"> [ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> ],</span><br><span class="line"> [ <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span> ],</span><br><span class="line"> [ <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span> ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>应该返回 <code>[1,2,3,6,9,8,7,4,5]</code>。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/11/2018041101/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<p>应该返回 <code>[1,2,3,6,9,8,7,4,5]</code>。<br><a id="more"></a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number[][]&#125; matrix</span></span><br><span class="line"><span class="comment"> * @return &#123;number[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> spiralOrder = <span class="function"><span class="keyword">function</span>(<span class="params">matrix</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> reArr = []</span><br><span class="line">    <span class="keyword">this</span>.reduceMat = <span class="function"><span class="keyword">function</span> (<span class="params">mat</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.isArray(mat)) <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">let</span> shiftArr = mat.shift()</span><br><span class="line">        reArr = reArr.concat(shiftArr)</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.isArray(mat)) <span class="keyword">return</span></span><br><span class="line">        mat.map(<span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            reArr.push(arr.pop())</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.isArray(mat)) <span class="keyword">return</span></span><br><span class="line">        reArr = reArr.concat(mat.pop().reverse())</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">this</span>.isArray(mat)) <span class="keyword">return</span></span><br><span class="line">        mat.reverse().map(<span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> shiftArr = arr.shift()</span><br><span class="line">            reArr.push(shiftArr)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.isArray(mat)) &#123;</span><br><span class="line">            reduceMat(mat.reverse())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.isArray = <span class="function"><span class="keyword">function</span> (<span class="params">mat</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(mat[<span class="number">0</span>]) === <span class="string">'[object Array]'</span> &amp;&amp; mat[<span class="number">0</span>].length &gt; <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.reduceMat(matrix)</span><br><span class="line">    <span class="keyword">return</span> reArr</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -341,6 +334,30 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>投食二维码</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="TyroneFgu 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
@@ -348,143 +365,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fenggu.github.io/2018/03/26/2018032602/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyroneFgu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tyrone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/26/2018032602/" itemprop="url">使用react结合Immutable实现一道五子棋面试题(下)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:25:34+08:00">
-                2018-03-26
-              </time>
+              <a href="/2018/03/26/2018032602/" rel="next" title="使用react结合Immutable实现一道五子棋面试题(下)">
+                <i class="fa fa-chevron-left"></i> 使用react结合Immutable实现一道五子棋面试题(下)
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>一道面试题,要求如下：</p>
-<ul>
-<li>用web技术实现一个五子棋</li>
-<li>支持DOM和Canvas版本切换</li>
-<li>实现悔棋功能</li>
-<li>实现一个撤销悔棋功能</li>
-</ul>
-<p>前文: <a href="https://fenggu.github.io/2018/03/26/2018032601/">使用react结合Immutable实现一道五子棋面试题(上)</a><br>github: <a href="https://github.com/fenggu/gomoku" target="_blank" rel="noopener">https://github.com/fenggu/gomoku</a><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/2018032602/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -494,141 +396,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fenggu.github.io/2018/03/26/2018032601/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="TyroneFgu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tyrone">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/26/2018032601/" itemprop="url">使用react结合Immutable实现一道五子棋面试题(上)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T11:25:34+08:00">
-                2018-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>一道朋友的面试题,要求如下：</p>
-<ul>
-<li>用web技术实现一个五子棋</li>
-<li>支持DOM和Canvas版本切换</li>
-<li>实现悔棋功能</li>
-<li>实现一个撤销悔棋功能</li>
-</ul>
-<p>看起来挺有意思的,便用<code>react</code> <code>redux</code> <code>Immutable</code>等技术自己实现了一个。<br>github: <a href="https://github.com/fenggu/gomoku" target="_blank" rel="noopener">https://github.com/fenggu/gomoku</a><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/2018032601/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -636,6 +408,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTIwMC8xMTczNQ"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -871,6 +652,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -891,6 +676,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
